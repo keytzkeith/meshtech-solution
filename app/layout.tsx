@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import SiteFooter from '@/components/site-footer'
 import './globals.css'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
     images: [
       {
         url: '/og-image.jpg',
-        width: 1200,
+        width: 630,
         height: 630,
         alt: 'MESHTECH QUALITY SOLUTION',
       },
@@ -70,6 +71,7 @@ export default function RootLayout({
         {children}
         <SiteFooter />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
