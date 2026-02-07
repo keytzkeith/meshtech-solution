@@ -5,6 +5,7 @@ import SiteFooter from '@/components/site-footer'
 import './globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   title: {
     default: 'MESHTECH QUALITY SOLUTION | Printing, Toner & Printer Repair in Kenya',
     template: '%s | MESHTECH QUALITY SOLUTION',
@@ -33,8 +34,10 @@ export const metadata: Metadata = {
     siteName: 'MESHTECH QUALITY SOLUTION',
     images: [
       {
-        url: '/meshtech-logo.svg',
-        alt: 'MESHTECH QUALITY SOLUTION logo',
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'MESHTECH QUALITY SOLUTION',
       },
     ],
   },
@@ -43,7 +46,7 @@ export const metadata: Metadata = {
     title: 'MESHTECH QUALITY SOLUTION | Printing, Toner & Printer Repair in Kenya',
     description:
       'MESHTECH QUALITY SOLUTION provides professional printing materials, toner supplies, printer spare parts, digital printer maintenance, branding and stationery services in Kenya.',
-    images: ['/meshtech-logo.svg'],
+    images: ['/og-image.jpg'],
   },
   generator: 'v0.app',
   icons: {
