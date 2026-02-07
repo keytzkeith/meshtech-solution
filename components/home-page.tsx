@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { Mail, Phone, MapPin, CheckCircle } from 'lucide-react'
+import { Mail, Phone, MapPin, CheckCircle, Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 const services = [
@@ -57,6 +57,7 @@ export default function HomePage() {
     email: '',
     message: '',
   })
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const scrollToSection = (sectionId: string) => {
     if (sectionId === 'top') {
@@ -73,6 +74,7 @@ export default function HomePage() {
   const handleSectionClick = (sectionId: string) => {
     scrollToSection(sectionId)
     window.history.replaceState(null, '', '/')
+    setIsMobileMenuOpen(false)
   }
 
   useEffect(() => {
@@ -86,6 +88,13 @@ export default function HomePage() {
 
     return () => window.clearTimeout(timer)
   }, [])
+
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isMobileMenuOpen])
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -134,7 +143,7 @@ export default function HomePage() {
               className="h-12 w-auto"
             />
           </button>
-          <div className="flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-6">
             <button
               type="button"
               className="text-sm font-medium hover:text-primary transition cursor-pointer"
@@ -160,8 +169,71 @@ export default function HomePage() {
               <Link href="/quote">Get Quote</Link>
             </Button>
           </div>
+          <button
+            type="button"
+            className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-primary cursor-pointer"
+            aria-label="Open navigation menu"
+            aria-expanded={isMobileMenuOpen}
+            onClick={() => setIsMobileMenuOpen(true)}
+          >
+            <Menu className="h-6 w-6" />
+          </button>
         </nav>
       </header>
+
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-[60] md:hidden">
+          <button
+            type="button"
+            className="absolute inset-0 bg-black/40 cursor-pointer"
+            aria-label="Close navigation menu"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+          <aside className="absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-white shadow-xl p-6 flex flex-col">
+            <div className="flex items-center justify-between mb-8">
+              <p className="font-semibold text-primary">Menu</p>
+              <button
+                type="button"
+                className="rounded-md p-2 text-primary cursor-pointer"
+                aria-label="Close navigation menu"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+            <div className="flex flex-col gap-4">
+              <button
+                type="button"
+                className="text-left text-base font-medium hover:text-primary transition cursor-pointer"
+                onClick={() => handleSectionClick('services')}
+              >
+                Services
+              </button>
+              <button
+                type="button"
+                className="text-left text-base font-medium hover:text-primary transition cursor-pointer"
+                onClick={() => handleSectionClick('why-us')}
+              >
+                Why Us
+              </button>
+              <button
+                type="button"
+                className="text-left text-base font-medium hover:text-primary transition cursor-pointer"
+                onClick={() => handleSectionClick('contact')}
+              >
+                Contact
+              </button>
+            </div>
+            <Button
+              asChild
+              className="mt-6 bg-accent text-accent-foreground hover:opacity-90"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <Link href="/quote">Get Quote</Link>
+            </Button>
+          </aside>
+        </div>
+      )}
 
       {/* Hero Section */}
       <section className="relative bg-linear-to-br from-primary via-primary to-secondary text-white py-20 overflow-hidden">
