@@ -3,7 +3,6 @@
 import React from "react"
 import Image from 'next/image'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
 
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -53,7 +52,6 @@ const whyChooseUs = [
 const WHATSAPP_NUMBER = '254746382681'
 
 export default function HomePage() {
-  const searchParams = useSearchParams()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -78,7 +76,7 @@ export default function HomePage() {
   }
 
   useEffect(() => {
-    const sectionId = searchParams.get('section')
+    const sectionId = new URLSearchParams(window.location.search).get('section')
     if (!sectionId) return
 
     const timer = window.setTimeout(() => {
@@ -87,7 +85,7 @@ export default function HomePage() {
     }, 50)
 
     return () => window.clearTimeout(timer)
-  }, [searchParams])
+  }, [])
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
