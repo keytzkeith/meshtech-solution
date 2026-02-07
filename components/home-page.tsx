@@ -182,7 +182,7 @@ export default function HomePage() {
       </header>
 
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-[60] md:hidden">
+        <div className="fixed inset-0 z-60 md:hidden">
           <button
             type="button"
             className="absolute inset-0 bg-black/40 cursor-pointer"
